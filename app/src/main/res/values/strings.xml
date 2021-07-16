@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Notas App</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="mi_perfil">Mi perfil</string>
+    <string name="favoritas">Favoritas</string>
+    <string name="notas">Notas</string>
+    <string name="Action_add_nota">Nueva Nota</string>
+</resources>
