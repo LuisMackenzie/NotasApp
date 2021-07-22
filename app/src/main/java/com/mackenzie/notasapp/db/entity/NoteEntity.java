@@ -4,13 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "notas")
 public class NoteEntity {
 
     // Este decorador contendra un valor unico para cada nota autogenerado
     @PrimaryKey(autoGenerate = true)
     public int id;
-
 
     @ColumnInfo(name = "Titulo")
     public String titulo;
@@ -20,12 +21,19 @@ public class NoteEntity {
     public boolean favorita;
     @ColumnInfo(name = "Color")
     public String color;
+    @ColumnInfo(name = "Fecha")
+    public String fecha;
+
+    public NoteEntity() {
+    }
 
     public NoteEntity(String titulo, String contenido, boolean favorita, String color) {
         this.titulo = titulo;
         this.contenido = contenido;
         this.favorita = favorita;
         this.color = color;
+        Date date = new Date();
+        fecha = date.toString();
     }
 
     public int getId() {
@@ -66,5 +74,13 @@ public class NoteEntity {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

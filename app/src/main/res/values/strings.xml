@@ -7,4 +7,5 @@
     <string name="favoritas">Favoritas</string>
     <string name="notas">Notas</string>
     <string name="Action_add_nota">Nueva Nota</string>
+    <string name="borrar_todo">Borrar todo</string>
 </resources>

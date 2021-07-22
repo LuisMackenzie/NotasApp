@@ -1,6 +1,7 @@
 package com.mackenzie.notasapp.db.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -24,7 +25,7 @@ public interface NotaDao {
     @Query("DELETE FROM Notas WHERE id = :idNota")
     public abstract void deleteById(int idNota);
 
-    @Query("SELECT * FROM Notas ORDER BY titulo ASC")
+    @Query("SELECT * FROM Notas ORDER BY fecha ASC")
     public abstract LiveData<List<NoteEntity>> getAllNotes();
 
     @Query("SELECT * FROM Notas WHERE Favoritos LIKE 'true'")

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +21,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mackenzie.notasapp.Constantes;
 import com.mackenzie.notasapp.NuevaNotaDialogFragment;
 import com.mackenzie.notasapp.NuevaNotaDialogViewModel;
 import com.mackenzie.notasapp.R;
@@ -39,7 +42,6 @@ public class NoteFragment2 extends Fragment {
     private int mColumnCount = 2;
     private List<NoteEntity> notaList;
     private MyNoteRecyclerViewAdapter adapterNotes;
-    private NuevaNotaDialogViewModel mViewModel;
     private NoteViewModel noteViewModel;
 
     /**
@@ -81,8 +83,10 @@ public class NoteFragment2 extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (view.getTag() == "portrait") {
+            if (view.getTag().equals("portrait")) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                // String temp = view.getTag().toString();
+                // Toast.makeText(getContext(), "Tag is " + temp, Toast.LENGTH_SHORT).show();
             } else {
                 DisplayMetrics metrics = context.getResources().getDisplayMetrics();
                 float dpWidth = metrics.widthPixels / metrics.density;
@@ -92,15 +96,7 @@ public class NoteFragment2 extends Fragment {
             }
 
             notaList = new ArrayList<>();
-            /*
-            notaList.add(new Note("Nota de Prueba", "Probando el contenido de una nota aleatoruiamente", true, R.color.white));
-            notaList.add(new Note("Lista de compra", "Probando el contenido de una nota aleatoruiamente", false, android.R.color.holo_red_light));
-            notaList.add(new Note("Cosas de casa", "Probando el contenido de una nota aleatoruiamente, Probando el contenido de una nota aleatoruiamente, Probando el contenido de una nota aleatoruiamente, Probando el contenido de una nota aleatoruiamente", true, R.color.white));
-            notaList.add(new Note("Lista de Tareas", "Probando el contenido de una nota aleatoruiamente", false, android.R.color.holo_blue_light));
-            notaList.add(new Note("Trabajos pendientes", "Probando el contenido de una nota aleatoruiamente", false, android.R.color.holo_orange_light));
-            notaList.add(new Note("Estudios Pendientes", "Probando el contenido de una nota aleatoruiamente , Probando el contenido de una nota aleatoruiamente, Probando el contenido de una nota aleatoruiamente", false, android.R.color.holo_green_light));
-            notaList.add(new Note("Lista de Tareas", "Probando el contenido de una nota aleatoruiamente", false, android.R.color.holo_blue_light));
-            */
+
             adapterNotes = new MyNoteRecyclerViewAdapter(notaList, getActivity());
             recyclerView.setAdapter(adapterNotes);
 
@@ -119,7 +115,14 @@ public class NoteFragment2 extends Fragment {
             @Override
             public void onChanged(List<NoteEntity> noteEntities) {
 
-                adapterNotes.setNuevasNotas(noteEntities);
+                if (Constantes.ERASED_CONTENT) {
+                    List<NoteEntity> emptyNoteList = new ArrayList<>();
+                    adapterNotes.setData(emptyNoteList);
+                    Toast.makeText(getContext(), "erasedContent = " + Constantes.ERASED_CONTENT, Toast.LENGTH_SHORT).show();
+                } else {
+                    adapterNotes.setNuevasNotas(noteEntities);
+                    Toast.makeText(getContext(), "erasedContent = " + Constantes.ERASED_CONTENT, Toast.LENGTH_SHORT).show();
+                }
                 adapterNotes.notifyDataSetChanged();
             }
         });
@@ -137,10 +140,27 @@ public class NoteFragment2 extends Fragment {
             case R.id.action_add_note:
                 mostrarDialogoNuevaNota();
                 return true;
+            case R.id.action_delete_all_notes:
+                borrarTodasNotas();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void borrarNota(int idNota) {
+        // erasedContent = true;
+        // List<NoteEntity> notaListClone = new ArrayList<>();
+
+    }
+
+    private void borrarTodasNotas() {
+        Constantes.ERASED_CONTENT = true;
+        noteViewModel.borrarTodasNotas();
+        // LiveData<List<NoteEntity>> notaListClone = noteViewModel.borrarTodasNotas();
+        lanzarViewModel();
+        // Toast.makeText(getContext(), "Borrando notas", Toast.LENGTH_SHORT).show();
     }
 
     private void mostrarDialogoNuevaNota() {

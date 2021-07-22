@@ -98,6 +98,7 @@ public class NuevaNotaDialogFragment extends DialogFragment {
 
         builder.setView(view);
 
+        Constantes.ERASED_CONTENT = false;
         // Create the AlertDialog object and return it
         return builder.create();
     }
