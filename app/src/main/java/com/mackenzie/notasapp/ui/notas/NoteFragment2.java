@@ -81,7 +81,7 @@ public class NoteFragment2 extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (view.getId() == R.id.listPortrait) {
+            if (view.getTag() == "portrait") {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 DisplayMetrics metrics = context.getResources().getDisplayMetrics();

@@ -2,12 +2,15 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listPortrait"
     android:name="com.mackenzie.notasapp.ui.notas.NoteFragment2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    android:tag="portrait"
+    android:id="@+id/list_notes"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.notas.NoteFragment2"
     tools:listitem="@layout/fragment_item" />
+
+    <!--android:id="@+id/listPortrait"-->

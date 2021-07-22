@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_host_fragment"
-        android:name="com.mackenzie.notasapp.ui.notas.NoteFragment2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
